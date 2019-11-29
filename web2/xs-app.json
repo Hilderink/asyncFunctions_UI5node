@@ -1,0 +1,10 @@
+{
+	"welcomeFile": "webapp/index.html",
+	"authenticationMethod": "none",
+	"routes": [{
+		"source": "/api/(.*)",
+		"destination": "js-api",
+		"csrfProtection": true,
+		"authenticationType": "none"
+	}]
+}

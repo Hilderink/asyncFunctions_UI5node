@@ -1,0 +1,6 @@
+/* Enter your custom styles here */
+
+.sapMFlexItemAlignAuto.sapMFlexBoxBGTransparent.sapMFlexItem.sapUiHiddenPlaceholder{
+	display: block!important;
+	width: 100%;
+}

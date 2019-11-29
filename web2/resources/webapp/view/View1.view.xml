@@ -1,0 +1,100 @@
+<mvc:View
+	controllerName="web2.web2.controller.View1"
+	xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m"
+	height="100%">
+	<l:ResponsiveSplitter defaultPane="default">
+		<l:PaneContainer>
+			<l:PaneContainer orientation="Vertical">
+				<l:SplitPane  requiredParentWidth="600">
+					<Panel headerText="Server settings">
+						<InputListItem label="Respond behaviour" >
+							<Select selectedKey="{settings>/behaviour}" change="onSelectBehaviour">
+								<core:Item key="I" text="Inmedeately" />
+								<core:Item key="R" text="With random delay" />
+								<core:Item key="F" text="With fixed delay" />
+								<core:Item key="A" text="Server error" />
+							</Select>
+						</InputListItem>
+						<InputListItem label="Delay">
+							<Slider enableTickmarks="true" enabled="{= ${settings>/behaviour} === 'F'}" value="{settings>/delay}" step="1" min="0" max="15" width="200px" />
+						</InputListItem>
+						<Button text="Save" press="handlePressSaveSettings" ></Button>
+					</Panel>
+				</l:SplitPane>
+				<l:SplitPane  requiredParentWidth="800">
+					<Panel headerText="Call manager">
+						<content>
+							<RadioButtonGroup selectedIndex="{view>/selectedButton}">
+								<buttons>
+									<RadioButton groupName="GroupA" text="Handle immediately" enabled="false" />
+									<RadioButton groupName="GroupA" text="Handle one by one" enabled="false"/>
+									<RadioButton groupName="GroupA" text="Handle one by one -> Busy indicator / Error"/>
+								</buttons>
+							</RadioButtonGroup>
+							<CheckBox text="Add unique parameter to url" selected="{view>/uniqueParameter}" enabled="false" />
+							<HBox>
+								<Button id="run1" text="Post data" press="handlePressPost" >
+									<customData>
+										<core:CustomData key="waiterGroup" value="group1"/>
+									</customData>
+								</Button>
+								<Button id="run2" text="Get data" press="handlePressGet" >
+									<customData>
+										<core:CustomData key="waiterGroup" value="group1"/>
+									</customData>
+								</Button>
+							</HBox>
+						</content>
+					</Panel>
+				</l:SplitPane>
+			</l:PaneContainer>
+			<l:PaneContainer orientation="Vertical">
+				<l:SplitPane  requiredParentWidth="800">
+					<Panel headerText="Message log">
+						<content>
+							<HBox>
+								<Button type="Reject"
+									icon="sap-icon://number-sign" 
+									tooltip="Share" 
+									enabled="false" 
+									text="{view>/id}"/>
+								<Button type="Accept"
+									icon="sap-icon://along-stacked-chart" 
+									tooltip="Share" 
+									enabled="false" 
+									text="{view>/stackLength}"/>
+								<Button
+									visible="false"
+									width="100%"
+									class="sapUiSmallMarginEnd"/>	
+								<Button
+									id="helloDialogButton"
+									icon="sap-icon://popup-window"
+									press="onOpenDialog"
+									class="sapUiSmallMarginEnd"/>
+							</HBox>
+						</content>
+					</Panel>
+				</l:SplitPane>
+				<l:SplitPane  requiredParentWidth="800">
+				<Page showHeader="false">
+					<content>
+						<MessageView items="{view>/messages}" height="1000px" width="100%">
+							<headerButton>
+								<Button text="Clear" press="handlePressClear"/>
+							</headerButton>
+							<MessageItem
+								type="{view>type}"
+								title="{view>title}"
+								subtitle="{view>subtitle}">
+							</MessageItem>
+						</MessageView>
+					</content>
+				</Page></l:SplitPane>
+			</l:PaneContainer>
+		</l:PaneContainer>
+	</l:ResponsiveSplitter>
+</mvc:View>

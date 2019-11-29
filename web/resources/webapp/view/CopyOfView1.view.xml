@@ -1,0 +1,100 @@
+<mvc:View controllerName="web.web.controller.View1" xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml"
+	displayBlock="true" xmlns="sap.m" 
+	xmlns:core="sap.ui.core">
+	<App id="idAppControl">
+		<pages>
+			<Page title="{i18n>title}">
+				<content>
+					<VBox>
+						<Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
+							<headerToolbar>
+								<OverflowToolbar height="3rem">
+									<Title text="Settings"/>
+								</OverflowToolbar>
+							</headerToolbar>
+							<content>
+								<HBox>
+									<VBox width="50%">
+										<InputListItem label="Respond behaviour" >
+											<Select selectedKey="{settings>/behaviour}" change="onSelectBehaviour">
+												<core:Item key="I" text="Inmedeately" />
+												<core:Item key="R" text="With random delay" />
+												<core:Item key="F" text="With fixed delay" />
+												<core:Item key="A" text="Server error" />
+											</Select>
+										</InputListItem>
+										<InputListItem label="Delay">
+											<Slider enableTickmarks="true" enabled="{= ${settings>/behaviour} === 'F'}" value="{settings>/delay}" step="1" min="0" max="15" width="200px" />
+										</InputListItem>
+										<Button text="Save" press="handlePressSaveSettings" ></Button>
+									</VBox>
+									<VBox width="50%">
+										<InputListItem label="ID of next post-call">
+											<NumericContent value="{view>/id}" 
+												icon="sap-icon://number-sign"
+												class="sapUiSmallMargin" />										
+										</InputListItem>
+										<InputListItem label="Calls in progress">
+											<NumericContent value="{view>/stackLength}" 
+												icon="sap-icon://along-stacked-chart"
+												class="sapUiSmallMargin" />
+										</InputListItem>
+									</VBox>	
+								</HBox>
+							</content>
+						</Panel>
+						<Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
+							<headerToolbar>
+								<OverflowToolbar height="3rem">
+									<Title text="Start communication"/>
+								</OverflowToolbar>
+							</headerToolbar>
+							<content>
+								<HBox>
+									<VBox width="50%">
+										<RadioButton groupName="GroupA" text="Handle asynchronously" selected="true" />
+										<RadioButton groupName="GroupA" text="Handle synchronously" />
+										<RadioButton groupName="GroupA" text="Handle synchronously -> BI on elements" />
+										<RadioButton groupName="GroupA" text="Handle synchronously -> BI on elements -> BI on screen" />
+										<RadioButton groupName="GroupA" text="Handle synchronously -> BI on elements -> BI on screen -> Error " />
+									</VBox>
+									<VBox width="50%">
+										<Image heigth="100%" src="{img>/products/pic1}" width="10em" />
+										<HBox>
+											<Button id="run1" text="Post data" press="handlePressPost" >
+												<customData>
+													<core:CustomData key="waiterGroup" value="group1"/>
+												</customData>
+											</Button>
+											<Button id="run2" text="Get data" press="handlePressGet" >
+												<customData>
+													<core:CustomData key="waiterGroup" value="group1"/>
+												</customData>
+											</Button>
+										</HBox>
+									</VBox>
+								</HBox>
+							</content>
+						</Panel>
+						<Panel height="100%" width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
+							<headerToolbar>
+								<OverflowToolbar height="3rem">
+									<Title text="Message log"/>
+								</OverflowToolbar>
+							</headerToolbar>
+							<content>
+								<MessageView items="{view>/messages}" height="1000px" width="100%">
+									<MessageItem
+										type="{view>type}"
+										title="{view>title}"
+										subtitle="{view>subtitle}">
+									</MessageItem>
+								</MessageView>
+							</content>
+						</Panel>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

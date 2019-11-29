@@ -1,0 +1,7 @@
+applications:
+- name: js
+  path: js
+  services:
+    - hana
+- name: web
+  path: web

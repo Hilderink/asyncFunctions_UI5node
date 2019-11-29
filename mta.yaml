@@ -1,0 +1,53 @@
+ID: Async
+_schema-version: '2.1'
+version: 0.0.1
+modules:
+  - name: js
+    type: nodejs
+    path: js
+    provides:
+      - name: js_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: hana
+    parameters:
+      memory: 128M
+  - name: web
+    type: html5
+    path: web
+    requires:
+      - name: js_api
+        group: destinations
+        properties:
+          name: js-api
+          url: '~{url}'
+          forwardAuthToken: true
+    parameters:
+      memory: 128M
+  - name: db
+    type: hdb
+    path: db
+    requires:
+      - name: hdi_db
+  - name: web2
+    type: html5
+    path: web2
+    requires:
+      - name: js_api
+        group: destinations
+        properties:
+          name: js-api
+          url: '~{url}'
+          forwardAuthToken: true
+    parameters:
+      memory: 128M
+resources:
+  - name: hana
+    type: com.sap.xs.hdi-container
+    parameters:
+      service-name: hana
+  - name: hdi_db
+    properties:
+      hdi-container-name: '${service-name}'
+    type: com.sap.xs.hdi-container
